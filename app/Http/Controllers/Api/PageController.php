@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     public function index(){
-        $posts = Post::with('category')->with('tags')->get();
+        // Oppure ->with('category)->with('tags)
+        $posts = Post::with(['category', 'tags'])->paginate(5);
 
-        return response()->json(compact('posts'));
+        return response()->json($posts);
     }
 }
