@@ -1,12 +1,12 @@
+@import '~bootstrap/scss/bootstrap';
+
 body{
     background-color: red;
     color: white;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.container{
-    width: 90%;
-    max-width: 1000px;
-    padding: 15px;
-    margin: 0 auto;
+main{
+    padding: 20px 0;
+    min-height: calc(100vh - 120px);
 }
