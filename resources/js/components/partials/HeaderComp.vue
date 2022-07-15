@@ -23,6 +23,9 @@
         padding: 20px;
         height: 60px;
         background-color: white;
+        .active{
+            color: red;
+        }
     }
 
 </style>

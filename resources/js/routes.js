@@ -19,8 +19,11 @@ Vue.use(VueRouter);
 
 
 const router = new VueRouter({
+    // Per accedere alla cronologia dell'utente
     mode: 'history',
-    // linkExactActiveClass: 'active'   ---> Per cambiare nome alla classe attiva, che di default è router-link-exact-active
+
+    // Per cambiare nome alla classe attiva, che di default è router-link-exact-active
+    linkExactActiveClass: 'active',
     routes:[
         {
             path: '/',

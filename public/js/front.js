@@ -2109,7 +2109,7 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("h1", [_vm._v("Chi siamo?")]), _vm._v(" "), _c("p", [_vm._v("\n            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam, dolore cumque similique, esse atque beatae commodi cupiditate amet enim corrupti earum nostrum dolorem, quos quas? Repudiandae, atque commodi! Eaque, doloremque.\n        ")]), _vm._v(" "), _c("p", [_vm._v("\n            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam, dolore cumque similique, esse atque beatae commodi cupiditate amet enim corrupti earum nostrum dolorem, quos quas? Repudiandae, atque commodi! Eaque, doloremque.\n        ")])]);
+  return _c("div", [_c("h1", [_vm._v("Chi siamo?")]), _vm._v(" "), _c("p", [_vm._v("\r\n            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam, dolore cumque similique, esse atque beatae commodi cupiditate amet enim corrupti earum nostrum dolorem, quos quas? Repudiandae, atque commodi! Eaque, doloremque.\r\n        ")]), _vm._v(" "), _c("p", [_vm._v("\r\n            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam, dolore cumque similique, esse atque beatae commodi cupiditate amet enim corrupti earum nostrum dolorem, quos quas? Repudiandae, atque commodi! Eaque, doloremque.\r\n        ")])]);
 }];
 render._withStripped = true;
 
@@ -2147,7 +2147,7 @@ var render = function render() {
         return _vm.getApi(_vm.pagination.current - 1);
       }
     }
-  }, [_vm._v("\n            <<\n        ")]), _vm._v(" "), _vm._l(_vm.pagination.last, function (i) {
+  }, [_vm._v("\r\n            <<\r\n        ")]), _vm._v(" "), _vm._l(_vm.pagination.last, function (i) {
     return _c("button", {
       key: i,
       attrs: {
@@ -2158,7 +2158,7 @@ var render = function render() {
           return _vm.getApi(i);
         }
       }
-    }, [_vm._v("\n            " + _vm._s(i) + "\n        ")]);
+    }, [_vm._v("\r\n            " + _vm._s(i) + "\r\n        ")]);
   }), _vm._v(" "), _c("button", {
     attrs: {
       disabled: _vm.pagination.current === _vm.pagination.last
@@ -2168,7 +2168,7 @@ var render = function render() {
         return _vm.getApi(_vm.pagination.current + 1);
       }
     }
-  }, [_vm._v("\n            >>\n        ")])], 2);
+  }, [_vm._v("\r\n            >>\r\n        ")])], 2);
 };
 
 var staticRenderFns = [];
@@ -2199,7 +2199,7 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("h1", [_vm._v("Contatti")]), _vm._v(" "), _c("p", [_vm._v("\n            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius laboriosam amet consectetur blanditiis laborum tempora sint adipisci vel pariatur cum?\n        ")]), _vm._v(" "), _c("p", [_vm._v("\n            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius laboriosam amet consectetur blanditiis laborum tempora sint adipisci vel pariatur cum?\n        ")])]);
+  return _c("div", [_c("h1", [_vm._v("Contatti")]), _vm._v(" "), _c("p", [_vm._v("\r\n            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius laboriosam amet consectetur blanditiis laborum tempora sint adipisci vel pariatur cum?\r\n        ")]), _vm._v(" "), _c("p", [_vm._v("\r\n            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius laboriosam amet consectetur blanditiis laborum tempora sint adipisci vel pariatur cum?\r\n        ")])]);
 }];
 render._withStripped = true;
 
@@ -2228,7 +2228,7 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("h1", [_vm._v("HOME")]), _vm._v(" "), _c("p", [_vm._v("\n            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro reiciendis, non, autem dolorum eligendi aliquam, quas eius culpa ea hic blanditiis. Nostrum, ducimus? Libero eum aliquid doloribus, voluptatibus molestiae eveniet, totam nisi repellendus fuga quae corporis quas cumque repudiandae fugiat alias eos fugit blanditiis esse quam iusto maiores error odit?\n        ")])]);
+  return _c("div", [_c("h1", [_vm._v("HOME")]), _vm._v(" "), _c("p", [_vm._v("\r\n            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro reiciendis, non, autem dolorum eligendi aliquam, quas eius culpa ea hic blanditiis. Nostrum, ducimus? Libero eum aliquid doloribus, voluptatibus molestiae eveniet, totam nisi repellendus fuga quae corporis quas cumque repudiandae fugiat alias eos fugit blanditiis esse quam iusto maiores error odit?\r\n        ")])]);
 }];
 render._withStripped = true;
 
@@ -2250,7 +2250,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("footer", [_vm._v("\n\n        - Boolpress -\n\n    ")]);
+  return _c("footer", [_vm._v("\r\n\r\n        - Boolpress -\r\n\r\n    ")]);
 };
 
 var staticRenderFns = [];
@@ -2372,7 +2372,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "header[data-v-494e1ffe] {\n  padding: 20px;\n  height: 60px;\n  background-color: white;\n}", ""]);
+exports.push([module.i, "header[data-v-494e1ffe] {\n  padding: 20px;\n  height: 60px;\n  background-color: white;\n}\nheader .active[data-v-494e1ffe] {\n  color: red;\n}", ""]);
 
 // exports
 
@@ -18541,8 +18541,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
  //
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
+  // Per accedere alla cronologia dell'utente
   mode: 'history',
-  // linkExactActiveClass: 'active'   ---> Per cambiare nome alla classe attiva, che di default è router-link-exact-active
+  // Per cambiare nome alla classe attiva, che di default è router-link-exact-active
+  linkExactActiveClass: 'active',
   routes: [{
     path: '/',
     name: 'home',
