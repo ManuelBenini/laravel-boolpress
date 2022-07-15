@@ -1,7 +1,9 @@
 <template>
     <div class="d-flex">
 
-        <div class="post-container">
+        <LoadingComp v-if="isLoading" />
+
+        <div class="post-container" v-else>
             <h1>Lista Post</h1>
             <PostItemComp v-for="post in posts" :key="`post${post.id}`" :post="post" />
 
@@ -41,13 +43,15 @@
 <script>
     import PostItemComp from '../partials/PostItemComp.vue';
     import SidebarComp from '../partials/SidebarComp.vue';
+    import LoadingComp from '../partials/LoadingComp.vue';
 
     export default {
         name: 'BlogComp',
 
         components:{
             PostItemComp,
-            SidebarComp
+            SidebarComp,
+            LoadingComp
         },
 
         data(){
@@ -60,7 +64,8 @@
                 },
                 categories: [],
                 tags: [],
-                showPagination: true
+                showPagination: true,
+                isLoading: true
             }
         },
 
@@ -78,6 +83,10 @@
                     };
                     this.categories = rd.categories;
                     this.tags = rd.tags;
+
+                    if(rd.posts.data.length === this.posts.length){
+                        this.isLoading = false
+                    }
                 })
             },
 
@@ -88,6 +97,10 @@
                 .then(response =>{
                     const rd = response.data;
                     this.posts = rd.posts;
+
+                    if(rd.posts.data.length === this.posts.length){
+                        this.isLoading = false
+                    }
                 })
             },
 
