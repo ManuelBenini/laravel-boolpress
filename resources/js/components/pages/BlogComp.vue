@@ -1,18 +1,18 @@
 <template>
     <div>
         <h1>Lista Post</h1>
-        <PostComp v-for="post in posts" :key="post.id" :post="post" />
+        <PostItemComp v-for="post in posts" :key="`post${post.id}`" :post="post" />
 
         <!-- Inserire  v-if="pagination.current != 1" OPPURE :disabled-->
         <button
             :disabled = "pagination.current === 1"
             @click="getApi(pagination.current - 1)">
-            <<
+            &lt;&lt;
         </button>
 
         <button
             v-for="i in pagination.last"
-            :key="i"
+            :key="`btn${i}`"
             @click="getApi(i)"
             :disabled = "pagination.current === i" >
             {{i}}
@@ -28,13 +28,13 @@
 </template>
 
 <script>
-    import PostComp from '../partials/PostComp.vue';
+    import PostItemComp from '../partials/PostItemComp.vue';
 
     export default {
         name: 'BlogComp',
 
         components:{
-            PostComp
+            PostItemComp
         },
 
         data(){
@@ -51,11 +51,13 @@
         methods: {
             getApi(page){
                 axios.get(this.apiUrl + '?page=' + page)
-                .then(res =>{
-                    this.posts = res.data.data;
+                .then(response =>{
+                    const rd = response.data;
+
+                    this.posts = rd.posts.data;
                     this.pagination = {
-                        current: res.data.current_page,
-                        last: res.data.last_page,
+                        current: rd.posts.current_page,
+                        last: rd.posts.last_page,
                     }
                 })
             }

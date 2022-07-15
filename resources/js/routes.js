@@ -15,6 +15,7 @@ Vue.use(VueRouter);
     import ContactsComp from './components/pages/ContactsComp.vue';
     import BlogComp from './components/pages/BlogComp.vue';
     import AboutComp from './components/pages/AboutComp.vue';
+    import PostDetailComp from './components/pages/PostDetailComp.vue';
 //
 
 
@@ -44,6 +45,11 @@ const router = new VueRouter({
             path: '/contatti',
             name: 'contacts',
             component: ContactsComp
+        },
+        {
+            path: '/dettaglio-post/:slug',
+            name: 'detail',
+            component: PostDetailComp
         }
     ]
 })
