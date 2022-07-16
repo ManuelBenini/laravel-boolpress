@@ -40,7 +40,14 @@
 
         </div>
 
-        <SidebarComp :categories="categories" :tags="tags" @postsByCategory="postsByCategory" @postsByTag="postsByTag" @getAllPosts="getApi(1)"/>
+        <SidebarComp
+            :categories="categories" :tags="tags"
+            @postsByCategory="postsByCategory"
+            @postsByTag="postsByTag"
+            @getAllPosts="getApi(1)"
+            @disableCatFilter="disableCatFilter"
+            @disableTagFilter="disableTagFilter"
+        />
 
     </div>
 </template>
@@ -107,7 +114,7 @@
 
                 axios.get(this.apiUrl + filter_uri + filter_slug)
                 .then(response =>{
-                    const rd = response.data;
+                    const rd = response.data.posts;
 
                     this.posts = rd;
                     console.log(this.posts);
@@ -154,6 +161,29 @@
 
                 }else{
                     this.getFilteredPost('/post-per-tag/', tag_slug);
+                }
+            },
+
+            disableCatFilter(){
+                this.category_slug = '';
+                this.postFilterdByCat = false;
+
+                if(this.tag_slug){
+                    this.postsByTag(this.tag_slug);
+                }else{
+                    this.getApi(1);
+                }
+            },
+
+            disableTagFilter(){
+                this.tag_slug = '';
+                this.postFilterdByTag = false;
+
+                if(this.category_slug){
+                    this.postsByCategory(this.category_slug);
+                    console.log('sono una sirena');
+                }else{
+                    this.getApi(1);
                 }
             }
         },

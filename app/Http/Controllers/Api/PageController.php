@@ -27,23 +27,15 @@ class PageController extends Controller
     }
 
     public function getPostByCategory($category_slug){
-        $category = Category::where('slug', $category_slug)->first();
+        $post_by_category = Category::where('slug', $category_slug)->with('posts')->first();
 
-        $posts = Post::where('category_id', $category->id)->with(['category','tags'] )->get();
-
-        return response()->json($posts);
+        return response()->json($post_by_category);
     }
 
     public function getPostByTag($tag_slug){
-        $tag = Tag::where('slug', $tag_slug)->first();
+        $post_by_tag = Tag::where('slug', $tag_slug)->with('posts')->first();
 
-        $tag_id = $tag->id;
-
-        $posts = Post::whereHas('tags', function ($query) use ($tag_id) {
-            $query->where('id', $tag_id);
-        })->with(['tags', 'category'])->get();
-
-        return response()->json($posts);
+        return response()->json($post_by_tag);
     }
 
     public function getPostsByCatTag($category_slug, $tag_slug){

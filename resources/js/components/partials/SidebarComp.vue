@@ -10,6 +10,7 @@
                 @click="$emit('postsByCategory', category.slug)">
                 {{category.name}}
             </li>
+            <li @click="$emit('disableCatFilter')">Annulla filtro per categoria</li>
         </ul>
 
 
@@ -22,6 +23,7 @@
                 @click="$emit('postsByTag', tag.slug)">
                 {{tag.name}}
             </li>
+            <li @click="$emit('disableTagFilter')">Annulla filtro per tag</li>
         </ul>
 
         <h3 @click="$emit('getAllPosts')">Annulla filtri</h3>
@@ -41,5 +43,20 @@
 </script>
 
 <style lang="scss" scoped>
+
+    ul{
+        li{
+            cursor: pointer;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+    h3{
+        cursor: pointer;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
 
 </style>
