@@ -1970,7 +1970,11 @@ __webpack_require__.r(__webpack_exports__);
       categories: [],
       tags: [],
       showPagination: true,
-      isLoading: true
+      isLoading: true,
+      postFilterdByCat: false,
+      postFilterdByTag: false,
+      category_slug: '',
+      tag_slug: ''
     };
   },
   methods: {
@@ -1979,6 +1983,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get(this.apiUrl + '?page=' + page).then(function (response) {
         _this.showPagination = true;
+        _this.postFilterdByCat = false;
+        _this.postFilterdByTag = false;
         var rd = response.data;
         _this.posts = rd.posts.data;
         _this.pagination = {
@@ -1988,7 +1994,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.categories = rd.categories;
         _this.tags = rd.tags;
 
-        if (rd.posts.data.length === _this.posts.length) {
+        if (_this.posts.length === rd.posts.data.length) {
           _this.isLoading = false;
         }
       });
@@ -1999,18 +2005,46 @@ __webpack_require__.r(__webpack_exports__);
       this.showPagination = false;
       axios.get(this.apiUrl + filter_uri + filter_slug).then(function (response) {
         var rd = response.data;
-        _this2.posts = rd.posts;
+        _this2.posts = rd;
+        console.log(_this2.posts);
 
-        if (rd.posts.data.length === _this2.posts.length) {
+        if (_this2.posts.length === rd.length) {
           _this2.isLoading = false;
         }
       });
     },
+    getfilteredPostCatTag: function getfilteredPostCatTag(category_slug, tag_slug) {
+      var _this3 = this;
+
+      axios.get(this.apiUrl + '/post-cat-tag/' + category_slug + '/' + tag_slug).then(function (response) {
+        var rd = response.data;
+        _this3.posts = rd;
+        console.log('array filtrato con cat e tag' + _this3.posts);
+
+        if (_this3.posts.length === rd.length) {
+          _this3.isLoading = false;
+        }
+      });
+    },
     postsByCategory: function postsByCategory(category_slug) {
-      this.getFilteredPost('/post-per-categoria/', category_slug);
+      this.postFilterdByCat = true;
+      this.category_slug = category_slug;
+
+      if (this.postFilterdByCat && this.postFilterdByTag) {
+        this.getfilteredPostCatTag(this.category_slug, this.tag_slug);
+      } else {
+        this.getFilteredPost('/post-per-categoria/', category_slug);
+      }
     },
     postsByTag: function postsByTag(tag_slug) {
-      this.getFilteredPost('/post-per-tag/', tag_slug);
+      this.postFilterdByTag = true;
+      this.tag_slug = tag_slug;
+
+      if (this.postFilterdByCat && this.postFilterdByTag) {
+        this.getfilteredPostCatTag(this.category_slug, this.tag_slug);
+      } else {
+        this.getFilteredPost('/post-per-tag/', tag_slug);
+      }
     }
   },
   mounted: function mounted() {
@@ -2294,14 +2328,16 @@ var render = function render() {
     staticClass: "d-flex"
   }, [_vm.isLoading ? _c("LoadingComp") : _c("div", {
     staticClass: "post-container"
-  }, [_c("h1", [_vm._v("Lista Post")]), _vm._v(" "), _vm._l(_vm.posts, function (post) {
+  }, [_c("h1", [_vm._v("Lista Post")]), _vm._v(" "), _vm.posts.length > 0 ? _c("div", {
+    staticClass: "posts"
+  }, _vm._l(_vm.posts, function (post) {
     return _c("PostItemComp", {
       key: "post".concat(post.id),
       attrs: {
         post: post
       }
     });
-  }), _vm._v(" "), _vm.showPagination ? _c("div", {
+  }), 1) : _c("h3", [_vm._v("La ricerca non ha restituito nessun post")]), _vm._v(" "), _vm.showPagination ? _c("div", {
     staticClass: "btn-container"
   }, [_c("button", {
     attrs: {
@@ -2333,7 +2369,7 @@ var render = function render() {
         return _vm.getApi(_vm.pagination.current + 1);
       }
     }
-  }, [_vm._v("\n                    >>\n                ")])], 2) : _vm._e()], 2), _vm._v(" "), _c("SidebarComp", {
+  }, [_vm._v("\n                    >>\n                ")])], 2) : _vm._e()]), _vm._v(" "), _c("SidebarComp", {
     attrs: {
       categories: _vm.categories,
       tags: _vm.tags
@@ -2633,7 +2669,7 @@ var render = function render() {
         return _vm.$emit("getAllPosts");
       }
     }
-  }, [_vm._v("Tutti i post")])]);
+  }, [_vm._v("Annulla filtri")])]);
 };
 
 var staticRenderFns = [];

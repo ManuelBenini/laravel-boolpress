@@ -27,14 +27,38 @@ class PageController extends Controller
     }
 
     public function getPostByCategory($category_slug){
-        $post_by_category = Category::where('slug', $category_slug)->with('posts')->first();
+        $category = Category::where('slug', $category_slug)->first();
 
-        return response()->json($post_by_category);
+        $posts = Post::where('category_id', $category->id)->with(['category','tags'] )->get();
+
+        return response()->json($posts);
     }
 
     public function getPostByTag($tag_slug){
-        $post_by_tag = Tag::where('slug', $tag_slug)->with('posts')->first();
+        $tag = Tag::where('slug', $tag_slug)->first();
 
-        return response()->json($post_by_tag);
+        $tag_id = $tag->id;
+
+        $posts = Post::whereHas('tags', function ($query) use ($tag_id) {
+            $query->where('id', $tag_id);
+        })->with(['tags', 'category'])->get();
+
+        return response()->json($posts);
+    }
+
+    public function getPostsByCatTag($category_slug, $tag_slug){
+        // Ottengo la categoria scelta
+        $category = Category::where('slug', $category_slug)->first();
+
+        // Ottengo il tag scelto
+        $tag = Tag::where('slug', $tag_slug)->first();
+        $tag_id = $tag->id;
+
+        // Filtro i post che hanno la categoria scelta e filtro nuovamente in base al tag scelto
+        $posts = Post::where('category_id', $category->id)->whereHas('tags', function ($query) use ($tag_id){
+            $query->where('id', $tag_id);
+        })->with(['category','tags'] )->get();
+
+        return response()->json($posts);
     }
 }

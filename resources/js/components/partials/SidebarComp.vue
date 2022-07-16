@@ -24,7 +24,7 @@
             </li>
         </ul>
 
-        <h3 @click="$emit('getAllPosts')">Tutti i post</h3>
+        <h3 @click="$emit('getAllPosts')">Annulla filtri</h3>
 
     </div>
 </template>

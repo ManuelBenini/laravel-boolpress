@@ -5,7 +5,12 @@
 
         <div class="post-container" v-else>
             <h1>Lista Post</h1>
-            <PostItemComp v-for="post in posts" :key="`post${post.id}`" :post="post" />
+
+            <div class="posts" v-if="posts.length > 0">
+                <PostItemComp v-for="post in posts" :key="`post${post.id}`" :post="post" />
+            </div>
+
+            <h3 v-else>La ricerca non ha restituito nessun post</h3>
 
             <div class="btn-container" v-if="showPagination">
 
@@ -65,7 +70,12 @@
                 categories: [],
                 tags: [],
                 showPagination: true,
-                isLoading: true
+                isLoading: true,
+                postFilterdByCat: false,
+                postFilterdByTag: false,
+                category_slug: '',
+                tag_slug: ''
+
             }
         },
 
@@ -74,6 +84,8 @@
                 axios.get(this.apiUrl + '?page=' + page)
                 .then(response =>{
                     this.showPagination = true;
+                    this.postFilterdByCat = false;
+                    this.postFilterdByTag = false;
                     const rd = response.data;
 
                     this.posts = rd.posts.data;
@@ -84,7 +96,7 @@
                     this.categories = rd.categories;
                     this.tags = rd.tags;
 
-                    if(rd.posts.data.length === this.posts.length){
+                    if(this.posts.length === rd.posts.data.length){
                         this.isLoading = false
                     }
                 })
@@ -96,20 +108,53 @@
                 axios.get(this.apiUrl + filter_uri + filter_slug)
                 .then(response =>{
                     const rd = response.data;
-                    this.posts = rd.posts;
 
-                    if(rd.posts.data.length === this.posts.length){
+                    this.posts = rd;
+                    console.log(this.posts);
+
+                    if(this.posts.length === rd.length){
+                        this.isLoading = false
+                    }
+                })
+            },
+
+            getfilteredPostCatTag(category_slug, tag_slug){
+                axios.get(this.apiUrl + '/post-cat-tag/' + category_slug + '/' + tag_slug)
+                .then(response =>{
+                    const rd = response.data;
+
+                    this.posts = rd;
+                    console.log('array filtrato con cat e tag' + this.posts);
+
+                    if(this.posts.length === rd.length){
                         this.isLoading = false
                     }
                 })
             },
 
             postsByCategory(category_slug){
-                this.getFilteredPost('/post-per-categoria/', category_slug);
+                this.postFilterdByCat = true;
+                this.category_slug = category_slug;
+
+                if(this.postFilterdByCat && this.postFilterdByTag){
+                    this.getfilteredPostCatTag(this.category_slug, this.tag_slug);
+
+                }else{
+                    this.getFilteredPost('/post-per-categoria/', category_slug);
+                }
+
             },
 
             postsByTag(tag_slug){
-                this.getFilteredPost('/post-per-tag/', tag_slug);
+                this.postFilterdByTag = true;
+                this.tag_slug = tag_slug;
+
+                if(this.postFilterdByCat && this.postFilterdByTag){
+                    this.getfilteredPostCatTag(this.category_slug, this.tag_slug);
+
+                }else{
+                    this.getFilteredPost('/post-per-tag/', tag_slug);
+                }
             }
         },
 

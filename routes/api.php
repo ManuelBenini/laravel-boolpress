@@ -10,4 +10,5 @@ Route::namespace('Api')
             Route::get('/dettaglio-post/{slug}', 'PageController@getPost');
             Route::get('/post-per-categoria/{slug}', 'PageController@getPostByCategory');
             Route::get('/post-per-tag/{slug}', 'PageController@getPostByTag');
+            Route::get('/post-cat-tag/{catSlug}/{tagSlug}', 'PageController@getPostsByCatTag');
         });
